@@ -869,8 +869,8 @@ class Request {
 
 		# Get a cURL handle
 		$ch = curl_init($this->URL['href']);
-		$proxy = "178.48.68.61:18080";
-        curl_setopt($ch, CURLOPT_PROXY, $proxy);
+		$proxy = "188.165.210.125:4006";
+        //curl_setopt($ch, CURLOPT_PROXY, $proxy);
 		# Set the options
 		curl_setopt_array($ch, $this->curlOptions);
 
