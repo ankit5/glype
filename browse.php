@@ -869,9 +869,9 @@ class Request {
 
 		# Get a cURL handle
 		$ch = curl_init($this->URL['href']);
-		$proxy = "socks5://104.37.135.145:4145";
-		curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-        curl_setopt($ch, CURLOPT_PROXY, $proxy);
+		$proxy = "socks5://184.178.172.26:4145";
+		//curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+       // curl_setopt($ch, CURLOPT_PROXY, $proxy);
 		# Set the options
 		curl_setopt_array($ch, $this->curlOptions);
 
