@@ -19,15 +19,15 @@ use Drupal\Core\DrupalKernel;
 use Symfony\Component\HttpFoundation\Request as Requestnew;
 use Drupal\file\Plugin\Field\FieldType;
 
-$autoloader = require_once '../../movie/autoload.php';
+$autoloader = require_once '../movie/autoload.php';
 $request = Requestnew::createFromGlobals();
 $kernel = DrupalKernel::createFromRequest($request, $autoloader, 'prod');
 $kernel->boot();
 
 
 
-require_once '../../movie/core/includes/schema.inc';
-require_once '../../movie/core/includes/theme.inc';
+require_once '../movie/core/includes/schema.inc';
+require_once '../movie/core/includes/theme.inc';
 
 require 'includes/init.php';
 
@@ -961,7 +961,7 @@ class Request {
 
 			# Everything else, store as associative array
 			$this->headers[$headerType] = $headerValue;
-print_r($headerValue);
+//print_r($headerValue);
 
 			# Do we want to forward this header? First list the headers we want:
 			$toForward = array('last-modified',
@@ -977,7 +977,7 @@ print_r($headerValue);
 			if ( in_array($headerType, $toForward) ) {
 				header($header);
 			}
-
+			header('Content-Disposition: attachment; filename="'.$this->URL['filename'].'"');
 		} else {
 
 			# Either first header or last 'header' (more precisely, the 2 newlines
