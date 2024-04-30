@@ -15,6 +15,20 @@
 * Initialise
 ******************************************************************/
 
+use Drupal\Core\DrupalKernel;
+use Symfony\Component\HttpFoundation\Request as Requestnew;
+use Drupal\file\Plugin\Field\FieldType;
+
+$autoloader = require_once '../../movie/autoload.php';
+$request = Requestnew::createFromGlobals();
+$kernel = DrupalKernel::createFromRequest($request, $autoloader, 'prod');
+$kernel->boot();
+
+
+
+require_once '../../movie/core/includes/schema.inc';
+require_once '../../movie/core/includes/theme.inc';
+
 require 'includes/init.php';
 
 // if (count($adminDetails)===0) {
@@ -871,15 +885,18 @@ class Request {
 
 	# Make the request and return the downloaded file if parsing is needed
 	public function go($URL) {
-
+        $storage = \Drupal::entityTypeManager()->getStorage('node');
+        $node= $storage->load(64645);
 		# Save options
 		$this->URL = $URL;
-
+        $proxy = $node->field_ip->value;
+		// print $proxy;
+		// exit;
 		# Get a cURL handle
 		$ch = curl_init($this->URL['href']);
-		$proxy = "217.98.20.195:8080";
+		//$proxy = "217.98.20.195:8080";
 		//curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-        //curl_setopt($ch, CURLOPT_PROXY, $proxy);
+        curl_setopt($ch, CURLOPT_PROXY, $proxy);
 		# Set the options
 		// print "<pre>";
 		// print_r($this->curlOptions);
