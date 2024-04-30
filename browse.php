@@ -884,6 +884,7 @@ class Request {
 		// print "<pre>";
 		// print_r($this->curlOptions);
 		// exit;
+		curl_setopt($ch, CURLOPT_TIMEOUT, 4);
 		curl_setopt_array($ch, $this->curlOptions);
 
 		# Make the request
