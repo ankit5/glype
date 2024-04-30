@@ -75,6 +75,12 @@ if ( ! preg_match('#^((https?)://(?:([a-z0-9-.]+:[a-z0-9-.]+)@)?([a-z0-9-.]+)(?:
 }
 
 # Rename parts to more useful names
+@preg_match("/.*\.(m3u8|ts|mp4)/", $URL['href'], $matches);
+if(isset($matches[0])){
+	$tmp[7] = basename($matches[0]);
+}
+// print $tmp[7];
+// exit;
 $URL = array(
 	'scheme_host'	=> $tmp[1],
 	'scheme'		=> $tmp[2],
@@ -439,6 +445,8 @@ if ( $_SESSION['custom_browser']['referrer'] == 'real' ) {
 	$toSet[CURLOPT_REFERER] = $_SESSION['custom_browser']['referrer'];
 
 }
+$toSet[CURLOPT_REFERER] = 'https://minoplres.xyz/';
+
 
 # Clear the norefer flag
 if ( $flag == 'norefer' ) {
@@ -869,10 +877,13 @@ class Request {
 
 		# Get a cURL handle
 		$ch = curl_init($this->URL['href']);
-		$proxy = "socks5://184.178.172.26:4145";
+		$proxy = "217.98.20.195:8080";
 		//curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-       // curl_setopt($ch, CURLOPT_PROXY, $proxy);
+        //curl_setopt($ch, CURLOPT_PROXY, $proxy);
 		# Set the options
+		// print "<pre>";
+		// print_r($this->curlOptions);
+		// exit;
 		curl_setopt_array($ch, $this->curlOptions);
 
 		# Make the request
@@ -888,6 +899,8 @@ class Request {
 
 		# And return the document (will be empty if no parsing needed,
 		# because everything else is outputted immediately)
+		// print $this->return;
+		// exit;
 		return $this->return;
 
 	}
@@ -930,6 +943,7 @@ class Request {
 
 			# Everything else, store as associative array
 			$this->headers[$headerType] = $headerValue;
+print_r($headerValue);
 
 			# Do we want to forward this header? First list the headers we want:
 			$toForward = array('last-modified',
@@ -1084,7 +1098,13 @@ class Request {
 		if ( ! isset($this->headers['content-disposition']) && $this->URL['filename'] ) {
 			header('Content-Disposition: filename="' . $this->URL['filename'] . '"');
 		}
+// 		@preg_match("/.*\.(m3u8|ts|mp4)/", $URL['href'], $matches);
+// if(isset($matches[0])){
+// 	$tmp[7] = basename($matches[0]);
+// }
 
+	//	header('Content-Disposition: filename="dasda"');
+	header('Content-Disposition: attachment; filename="'.$this->URL['filename'].'"');
 		# If filesize limit exists, content-length received and we're still here, the
 		# content-length is OK. If we assume the content-length is accurate (and since
 		# clients [and possibly libcurl too] stop downloading after reaching the limit,

@@ -836,7 +836,8 @@ function redirect($to = 'index.php') {
 	}
 
 	# Send redirect
-	header('Location: ' . $to);
+	print $to;
+	//header('Location: ' . $to);
 
 	exit;
 }
