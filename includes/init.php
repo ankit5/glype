@@ -103,7 +103,14 @@ if ( ! defined('MULTIGLYPE') && file_exists($tmp = GLYPE_ROOT . '/themes/' . $CO
 /*****************************************************************
 * Start session
 ******************************************************************/
+//Set the session timeout for 2 seconds
+$timeout = 2;
 
+//Set the maxlifetime of the session
+ini_set( "session.gc_maxlifetime", $timeout );
+
+//Set the cookie lifetime of the session
+ini_set( "session.cookie_lifetime", $timeout );
 # Set name to the configured value - change if running multiple proxies in same
 # folder and experiencing session conflicts.
 session_name('s');
@@ -111,7 +118,9 @@ session_name('s');
 # Allow caching. We don't want PHP to send any cache-related headers automatically
 # (and by default it tries to stop all caching). Using this limiter sends the fewest
 # headers, which we override later.
-session_cache_limiter('private, must-revalidate');
+//session_cache_limiter('private_no_expire');
+session_cache_limiter('');
+
 //exit;
 # Don't call _start() if session.auto_start = 1
 if ( glype_session_id() == '' ) {
@@ -979,6 +988,7 @@ function arcfour($w,$k,$d) {
 # note - intended to obfustate URLs and HTML source code. Does not provide security. Use SSL for actual security.
 function glype_session_id() {
 	$session_id = session_id();
+	return '';
 	if ($session_id=='') {
 		return '';
 	} elseif (!preg_match('/^[a-zA-Z0-9-]+$/', $session_id)) { # valid characters are a-z, A-Z, 0-9 and '-'

@@ -67,6 +67,7 @@ switch ( $action ) {
 		$_SESSION['no_hotlink'] = true;
 
 		# Redirect to target
+		
 		redirect(proxyURL($url, 'norefer'));
 
 		break;
