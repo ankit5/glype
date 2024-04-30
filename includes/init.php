@@ -41,6 +41,7 @@ define('GLYPE_URL',
 	. $_SERVER['HTTP_HOST']
 	. preg_replace('#/(?:(?:includes/)?[^/]*|' . preg_quote(SCRIPT_NAME) . '.*)$#', '', $_SERVER['PHP_SELF'])
 ); 
+
 define('GLYPE_BROWSE', GLYPE_URL . '/' . SCRIPT_NAME);
 
 # Set timezone (uncomment and set to desired timezone)
@@ -110,8 +111,8 @@ session_name('s');
 # Allow caching. We don't want PHP to send any cache-related headers automatically
 # (and by default it tries to stop all caching). Using this limiter sends the fewest
 # headers, which we override later.
-session_cache_limiter('private_no_expire');
-
+session_cache_limiter('private, must-revalidate');
+//exit;
 # Don't call _start() if session.auto_start = 1
 if ( glype_session_id() == '' ) {
 	session_start();

@@ -16,9 +16,11 @@
 ******************************************************************/
 
 # Load global file
-unset($_SESSION['s']);
+
+//unset($_SESSION['s']);
 require 'includes/init.php';
-unset($_SESSION['s']);
+
+//unset($_SESSION['s']);
 # Send our no-cache headers
 sendNoCache();
 
