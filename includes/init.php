@@ -107,10 +107,10 @@ if ( ! defined('MULTIGLYPE') && file_exists($tmp = GLYPE_ROOT . '/themes/' . $CO
 $timeout = 2;
 
 //Set the maxlifetime of the session
-ini_set( "session.gc_maxlifetime", $timeout );
+// ini_set( "session.gc_maxlifetime", $timeout );
 
-//Set the cookie lifetime of the session
-ini_set( "session.cookie_lifetime", $timeout );
+// //Set the cookie lifetime of the session
+// ini_set( "session.cookie_lifetime", $timeout );
 # Set name to the configured value - change if running multiple proxies in same
 # folder and experiencing session conflicts.
 session_name('s');
@@ -118,8 +118,8 @@ session_name('s');
 # Allow caching. We don't want PHP to send any cache-related headers automatically
 # (and by default it tries to stop all caching). Using this limiter sends the fewest
 # headers, which we override later.
-//session_cache_limiter('private_no_expire');
-session_cache_limiter('');
+session_cache_limiter('private_no_expire');
+//session_cache_limiter('');
 
 //exit;
 # Don't call _start() if session.auto_start = 1
